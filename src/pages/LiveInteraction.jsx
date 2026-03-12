@@ -69,101 +69,113 @@ export default function LiveInteraction() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col relative overflow-hidden">
+    <div className="d-flex flex-column min-vh-100 bg-dark-custom text-light-custom position-relative overflow-hidden">
       {/* Background Ambience */}
-      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[120px] -z-10 transition-all duration-700 ${isSpeaking ? 'bg-blue-600/30 scale-110' : 'bg-indigo-900/20 scale-100'}`}></div>
+      <div 
+        className="position-absolute top-50 start-50 translate-middle rounded-circle" 
+        style={{ 
+            width: '800px', 
+            height: '800px', 
+            filter: 'blur(120px)', 
+            zIndex: 0,
+            transition: 'all 0.7s ease',
+            backgroundColor: isSpeaking ? 'rgba(37, 99, 235, 0.3)' : 'rgba(49, 46, 129, 0.2)',
+            transform: `translate(-50%, -50%) scale(${isSpeaking ? 1.1 : 1})`
+        }}
+      ></div>
 
       {/* Header */}
-      <header className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-900/50 backdrop-blur-md z-10">
-        <Link to="/dashboard" className="text-slate-400 hover:text-white flex items-center gap-2">
+      <header className="p-3 border-bottom border-secondary d-flex justify-content-between align-items-center" style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', backdropFilter: 'blur(12px)', zIndex: 10 }}>
+        <Link to="/dashboard" className="text-secondary hover:text-white d-flex align-items-center gap-2 text-decoration-none custom-hover">
           <ArrowLeft size={20} /> Dashboard
         </Link>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
-            <Globe size={16} className="text-indigo-400" />
+        <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center gap-2 bg-dark px-3 py-1 rounded border border-secondary">
+            <Globe size={16} style={{ color: '#818cf8' }} />
             <select 
-              className="bg-transparent text-sm text-slate-200 outline-none"
+              className="bg-transparent text-light border-0 py-1 pe-4 form-select-sm outline-none shadow-none text-sm"
+              style={{ minWidth: '100px', appearance: 'none' }}
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
             >
               {languages.map(l => (
-                  <option key={l.code} value={l.code} className="bg-slate-800">{l.name}</option>
+                  <option key={l.code} value={l.code} className="bg-dark text-light">{l.name}</option>
               ))}
             </select>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1.5">
-             {isSpeaking ? <Volume2 size={20} className="text-emerald-400 animate-pulse" /> : <Volume2 size={20} className="text-slate-500" />}
+          <div className="px-2">
+             <Volume2 size={20} className={isSpeaking ? 'text-success' : 'text-secondary'} style={{ transition: 'color 0.3s ease' }} />
           </div>
         </div>
       </header>
 
       {/* Main Interaction Area */}
-      <main className="flex-grow flex flex-col md:flex-row max-w-7xl mx-auto w-full p-4 lg:p-8 gap-8 overflow-hidden z-10">
+      <main className="flex-grow-1 d-flex flex-column flex-md-row mx-auto w-100 p-3 p-md-5 gap-4 overflow-hidden" style={{ maxWidth: '1280px', zIndex: 10 }}>
         
         {/* Avatar Visualizer */}
-        <div className="flex-1 flex flex-col items-center justify-center relative min-h-[300px] md:min-h-full">
+        <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center position-relative" style={{ minHeight: '300px' }}>
             {/* The Avatar */}
-            <div className={`relative transition-all duration-300 ${isSpeaking ? 'scale-105' : 'scale-100'}`}>
-               <div className={`absolute inset-0 rounded-full blur-2xl transition-all duration-300 ${isSpeaking ? 'bg-blue-500/50 scale-150 animate-pulse' : 'bg-transparent scale-100'}`}></div>
-               <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-slate-700 shadow-2xl relative overflow-hidden bg-slate-800 flex items-center justify-center">
+            <div className="position-relative" style={{ transition: 'all 0.3s ease', transform: `scale(${isSpeaking ? 1.05 : 1})` }}>
+               <div className="position-absolute w-100 h-100 rounded-circle" style={{ filter: 'blur(24px)', transition: 'all 0.3s ease', backgroundColor: isSpeaking ? 'rgba(59, 130, 246, 0.5)' : 'transparent', transform: `scale(${isSpeaking ? 1.5 : 1})` }}></div>
+               <div className="rounded-circle border border-4 border-secondary shadow-lg position-relative overflow-hidden bg-dark d-flex align-items-center justify-content-center" style={{ width: '256px', height: '256px' }}>
                   {/* Mock Abstract Avatar Inner Glow */}
-                  <div className={`w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 opacity-80 ${isSpeaking ? 'animate-pulse' : ''}`}></div>
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent"></div>
+                  <div className="w-100 h-100 opacity-75" style={{ background: 'linear-gradient(135deg, #6366f1, #9333ea)', transition: 'opacity 0.3s', opacity: isSpeaking ? 0.9 : 0.7 }}></div>
+                  <div className="position-absolute bottom-0 start-0 w-100 h-50" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)' }}></div>
                   
                   {/* Minimalistic Face/Core indicator */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-6">
-                     <div className="flex gap-10">
-                        <div className={`w-3 h-3 rounded-full bg-white transition-all ${isSpeaking ? 'h-4 bg-blue-200' : ''}`}></div>
-                        <div className={`w-3 h-3 rounded-full bg-white transition-all ${isSpeaking ? 'h-4 bg-blue-200' : ''}`}></div>
+                  <div className="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center gap-4">
+                     <div className="d-flex gap-5">
+                        <div className="rounded-circle bg-light" style={{ width: '12px', height: isSpeaking ? '16px' : '12px', transition: 'all 0.1s ease', backgroundColor: isSpeaking ? '#bfdbfe' : '#ffffff' }}></div>
+                        <div className="rounded-circle bg-light" style={{ width: '12px', height: isSpeaking ? '16px' : '12px', transition: 'all 0.1s ease', backgroundColor: isSpeaking ? '#bfdbfe' : '#ffffff' }}></div>
                      </div>
-                     <div className={`w-12 h-1 bg-white/50 rounded-full transition-all duration-100 ${isSpeaking ? 'h-4 w-8 rounded-xl bg-blue-300' : ''}`}></div>
+                     <div className="rounded-pill" style={{ width: isSpeaking ? '32px' : '48px', height: isSpeaking ? '16px' : '4px', backgroundColor: isSpeaking ? '#93c5fd' : 'rgba(255,255,255,0.5)', transition: 'all 0.1s ease' }}></div>
                   </div>
                </div>
             </div>
-            <h2 className="mt-8 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+            <h2 className="mt-5 fs-3 fw-bold text-gradient-custom mb-1">
                Nexus AI
             </h2>
-            <p className="text-slate-400">Status: {isSpeaking ? <span className="text-blue-400">Speaking...</span> : 'Listening'}</p>
+            <p className="text-secondary small">Status: {isSpeaking ? <span className="text-primary fw-medium">Speaking...</span> : 'Listening'}</p>
         </div>
 
         {/* Chat History Panel */}
-        <div className="flex-1 flex flex-col bg-slate-800/40 rounded-3xl border border-slate-700/50 backdrop-blur-sm overflow-hidden shadow-2xl h-[500px] md:h-auto">
-          <div className="flex-grow overflow-y-auto p-6 space-y-6">
+        <div className="flex-grow-1 d-flex flex-column glass-panel rounded-4 overflow-hidden shadow-lg h-100" style={{ maxHeight: '600px', flexBasis: '0', flexGrow: 1 }}>
+          <div className="flex-grow-1 overflow-auto p-4 d-flex flex-column gap-3">
             {messages.map((msg, idx) => (
-              <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-4 rounded-2xl ${
+              <div key={idx} className={`d-flex ${msg.sender === 'user' ? 'justify-content-end' : 'justify-content-start'}`}>
+                <div className={`p-3 rounded-4 ${
                   msg.sender === 'user' 
-                    ? 'bg-blue-600 text-white rounded-tr-sm shadow-lg shadow-blue-500/20' 
-                    : 'bg-slate-700 text-slate-200 rounded-tl-sm shadow-md'
-                }`}>
-                  <p className="text-sm md:text-base leading-relaxed">{msg.text}</p>
-                  <span className="text-[10px] opacity-60 uppercase mt-2 block w-full text-right">{msg.lang}</span>
+                    ? 'bg-primary text-light shadow-sm' 
+                    : 'bg-secondary bg-opacity-25 text-light shadow-sm'
+                }`} style={{ maxWidth: '80%', borderTopRightRadius: msg.sender === 'user' ? '0' : '1rem', borderTopLeftRadius: msg.sender !== 'user' ? '0' : '1rem' }}>
+                  <p className="mb-0 fs-6" style={{ lineHeight: '1.5' }}>{msg.text}</p>
+                  <span className="d-block w-100 text-end opacity-50 mt-1 fw-bold text-uppercase" style={{ fontSize: '10px' }}>{msg.lang}</span>
                 </div>
               </div>
             ))}
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={sendMessage} className="p-4 bg-slate-800/80 border-t border-slate-700 flex gap-2">
-            <button type="button" className="p-3 text-slate-400 hover:text-white hover:bg-slate-700 rounded-xl transition-colors">
+          <form onSubmit={sendMessage} className="p-3 border-top border-secondary d-flex gap-2" style={{ backgroundColor: 'rgba(30, 41, 59, 0.8)' }}>
+            <button type="button" className="btn btn-dark text-secondary custom-hover px-3 rounded-3 border-0">
                <Mic size={20} />
             </button>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={`Ask something in ${languages.find(l => l.code === language)?.name}...`}
-              className="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+              placeholder={`Ask something in ${languages.find(l => l.code === language)?.name || 'English'}...`}
+              className="form-control bg-dark border-secondary text-light rounded-3 px-3 py-2 shadow-none"
             />
-            <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 p-3 rounded-xl text-white shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center disabled:opacity-50" disabled={!input.trim()}>
-              <Send size={20} className="translate-x-[-1px] translate-y-[1px]" />
+            <button type="submit" className="btn btn-primary px-3 rounded-3 shadow-sm d-flex align-items-center justify-content-center" disabled={!input.trim()}>
+              <Send size={18} className="ms-1" />
             </button>
           </form>
         </div>
 
       </main>
 
-      <audio ref={audioRef} className="hidden" />
+      <audio ref={audioRef} className="d-none" />
     </div>
   );
 }

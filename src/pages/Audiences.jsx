@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PlusCircle, Activity, Users, Settings, Play, Search, Mail, Filter } from 'lucide-react';
+import { PlusCircle, Activity, Users, Settings, Search, Filter } from 'lucide-react';
 
 export default function Audiences() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,83 +13,86 @@ export default function Audiences() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col md:flex-row">
-      {/* Sidebar - Reused from Dashboard style */}
-      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-800 p-6 flex flex-col shrink-0">
-        <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 mb-10">
+    <div className="d-flex flex-column flex-md-row min-vh-100 bg-dark-custom text-light-custom">
+      {/* Sidebar */}
+      <aside className="sidebar-custom p-4 d-flex flex-column flex-shrink-0" style={{ minWidth: '250px' }}>
+        <div className="fs-4 fw-bold text-gradient-custom mb-5">
           AvatarComm
         </div>
-        <nav className="space-y-4 flex-grow">
-          <Link to="/dashboard" className="flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 rounded-xl transition-colors">
+        <nav className="d-flex flex-column gap-2 flex-grow-1">
+          <Link to="/dashboard" className="d-flex align-items-center gap-3 text-secondary px-3 py-2 rounded text-decoration-none custom-hover">
             <Activity size={20} /> Dashboard
           </Link>
-          <Link to="/create-avatar" className="flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 rounded-xl transition-colors">
+          <Link to="/create-avatar" className="d-flex align-items-center gap-3 text-secondary px-3 py-2 rounded text-decoration-none custom-hover">
             <PlusCircle size={20} /> Create Avatar
           </Link>
-          <Link to="/audiences" className="flex items-center gap-3 text-blue-400 bg-blue-500/10 px-4 py-3 rounded-xl font-medium">
+          <Link to="/audiences" className="d-flex align-items-center gap-3 text-primary bg-primary bg-opacity-10 px-3 py-2 rounded text-decoration-none fw-medium">
             <Users size={20} /> Audiences
           </Link>
-          <Link to="/settings" className="flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 rounded-xl transition-colors">
+          <Link to="/settings" className="d-flex align-items-center gap-3 text-secondary px-3 py-2 rounded text-decoration-none custom-hover">
             <Settings size={20} /> Settings
           </Link>
         </nav>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-grow p-8 overflow-y-auto">
-        <header className="flex justify-between items-center mb-10">
+      <main className="flex-grow-1 p-4 p-md-5 overflow-auto">
+        <header className="d-flex justify-content-between align-items-center mb-5">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Audience Management</h1>
-            <p className="text-slate-400">Manage and segment the global groups your Avatar interacts with.</p>
+            <h1 className="fs-2 fw-bold mb-2">Audience Management</h1>
+            <p className="text-secondary mb-0">Manage and segment the global groups your Avatar interacts with.</p>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg shadow-blue-500/30 transition-all font-medium">
+          <button className="btn btn-primary d-flex align-items-center gap-2 shadow">
             <PlusCircle size={18} /> Import Audience
           </button>
         </header>
 
         {/* Filters & Search */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="flex-grow relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
+        <div className="d-flex flex-column flex-md-row gap-3 mb-5">
+          <div className="flex-grow-1 position-relative">
+            <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary" size={20} />
             <input 
               type="text" 
               placeholder="Search audiences..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-800/50 border border-slate-700 rounded-xl pl-12 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="form-control bg-dark border-secondary text-light ps-5 py-2 shadow-none"
             />
           </div>
-          <button className="flex items-center gap-2 bg-slate-800 border border-slate-700 px-6 py-3 rounded-xl hover:bg-slate-700 transition-colors">
+          <button className="btn btn-outline-secondary d-flex align-items-center gap-2">
             <Filter size={18} /> Filters
           </button>
         </div>
 
         {/* Audience List */}
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden shadow-xl">
-          <div className="grid grid-cols-12 gap-4 p-4 border-b border-slate-700/50 text-slate-400 font-medium text-sm px-6">
-            <div className="col-span-5">Audience Segment</div>
-            <div className="col-span-2">Members</div>
-            <div className="col-span-3">Primary Location</div>
-            <div className="col-span-2 text-right">Last Interaction</div>
+        <div className="card-custom rounded-4 overflow-hidden shadow">
+          <div className="row g-0 p-3 border-bottom border-secondary text-secondary fw-medium small px-4 d-none d-md-flex">
+            <div className="col-5">Audience Segment</div>
+            <div className="col-2">Members</div>
+            <div className="col-3">Primary Location</div>
+            <div className="col-2 text-end">Last Interaction</div>
           </div>
           
-          <div className="divide-y divide-slate-700/50">
+          <div className="list-group list-group-flush bg-transparent">
             {audiences.map((aud) => (
-              <div key={aud.id} className="grid grid-cols-12 gap-4 p-6 items-center hover:bg-slate-700/20 transition-colors cursor-pointer group">
-                <div className="col-span-5 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center border border-indigo-500/30">
-                    <Users size={18} className="text-indigo-400" />
+              <div key={aud.id} className="list-group-item bg-transparent text-light border-secondary p-4 d-flex flex-column flex-md-row align-items-md-center gap-3 custom-hover">
+                <div className="col-md-5 d-flex align-items-center gap-3">
+                  <div className="bg-primary bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                    <Users size={18} className="text-primary" />
                   </div>
-                  <span className="font-semibold text-slate-200 group-hover:text-blue-400 transition-colors">{aud.name}</span>
+                  <span className="fw-semibold">{aud.name}</span>
                 </div>
-                <div className="col-span-2 text-slate-300">
+                <div className="col-md-2 text-secondary">
+                  <span className="d-md-none fw-bold me-2">Members:</span>
                   {aud.members.toLocaleString()}
                 </div>
-                <div className="col-span-3 flex items-center gap-2 text-slate-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <div className="col-md-3 d-flex align-items-center gap-2 text-secondary">
+                  <span className="d-md-none fw-bold me-2">Location:</span>
+                  <span className="bg-success rounded-circle" style={{ width: '6px', height: '6px' }}></span>
                   {aud.location}
                 </div>
-                <div className="col-span-2 flex items-center justify-end gap-3 text-sm text-slate-400">
+                <div className="col-md-2 text-md-end text-secondary small">
+                   <span className="d-md-none fw-bold me-2 text-light">Last Active:</span>
                   {aud.lastActive}
                 </div>
               </div>

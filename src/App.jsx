@@ -9,7 +9,7 @@ import SettingsPage from './pages/Settings';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-slate-900 text-slate-50 font-sans">
+      <div className="d-flex flex-column min-vh-100 bg-dark-custom text-light font-sans">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Navigate to="/" replace />} />

@@ -4,78 +4,90 @@ import { PlusCircle, Activity, Users, Settings, Play } from 'lucide-react';
 
 export default function Dashboard() {
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col md:flex-row">
+    <div className="d-flex flex-column flex-md-row min-vh-100 bg-dark-custom text-light-custom">
       {/* Sidebar */}
-      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-800 p-6 flex flex-col">
-        <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 mb-10">
+      <aside className="sidebar-custom p-4 d-flex flex-column" style={{ minWidth: '250px' }}>
+        <div className="fs-4 fw-bold text-gradient-custom mb-5">
           AvatarComm
         </div>
-        <nav className="space-y-4 flex-grow">
-          <Link to="/dashboard" className="flex items-center gap-3 text-blue-400 bg-blue-500/10 px-4 py-3 rounded-xl font-medium">
+        <nav className="d-flex flex-column gap-2 flex-grow-1">
+          <Link to="/dashboard" className="d-flex align-items-center gap-3 text-primary bg-primary bg-opacity-10 px-3 py-2 rounded text-decoration-none fw-medium">
             <Activity size={20} /> Dashboard
           </Link>
-          <Link to="/create-avatar" className="flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 rounded-xl transition-colors">
+          <Link to="/create-avatar" className="d-flex align-items-center gap-3 text-secondary px-3 py-2 rounded text-decoration-none custom-hover">
             <PlusCircle size={20} /> Create Avatar
           </Link>
-          <Link to="/audiences" className="flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 rounded-xl transition-colors">
+          <Link to="/audiences" className="d-flex align-items-center gap-3 text-secondary px-3 py-2 rounded text-decoration-none custom-hover">
             <Users size={20} /> Audiences
           </Link>
-          <Link to="/settings" className="flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 rounded-xl transition-colors">
+          <Link to="/settings" className="d-flex align-items-center gap-3 text-secondary px-3 py-2 rounded text-decoration-none custom-hover">
             <Settings size={20} /> Settings
           </Link>
         </nav>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-grow p-8">
-        <header className="flex justify-between items-center mb-10">
-          <h1 className="text-3xl font-bold">Welcome back, Leader</h1>
-          <Link to="/create-avatar" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg shadow-blue-500/30 transition-all font-medium">
+      <main className="flex-grow-1 p-4 p-md-5">
+        <header className="d-flex justify-content-between align-items-center mb-5">
+          <h1 className="fs-2 fw-bold m-0">Welcome back, Leader</h1>
+          <Link to="/create-avatar" className="btn btn-primary d-flex align-items-center gap-2 shadow">
             <PlusCircle size={18} /> New Avatar
           </Link>
         </header>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 text-left">
-            <p className="text-slate-400 font-medium mb-1">Total Interactions</p>
-            <p className="text-4xl font-bold text-white">12,450</p>
-            <p className="text-emerald-400 text-sm mt-2 flex items-center gap-1">+14% this week</p>
+        <div className="row g-4 mb-5">
+          <div className="col-12 col-md-4">
+            <div className="card-custom p-4 rounded-4 h-100">
+              <p className="text-secondary fw-medium mb-1">Total Interactions</p>
+              <p className="fs-2 fw-bold mb-0">12,450</p>
+              <p className="text-success small mt-2 mb-0 d-flex align-items-center gap-1">+14% this week</p>
+            </div>
           </div>
-          <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 text-left">
-            <p className="text-slate-400 font-medium mb-1">Active Avatars</p>
-            <p className="text-4xl font-bold text-white">3</p>
+          <div className="col-12 col-md-4">
+            <div className="card-custom p-4 rounded-4 h-100">
+              <p className="text-secondary fw-medium mb-1">Active Avatars</p>
+              <p className="fs-2 fw-bold mb-0">3</p>
+            </div>
           </div>
-          <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 text-left">
-            <p className="text-slate-400 font-medium mb-1">Languages Spoken</p>
-            <p className="text-4xl font-bold text-white">8</p>
+          <div className="col-12 col-md-4">
+            <div className="card-custom p-4 rounded-4 h-100">
+              <p className="text-secondary fw-medium mb-1">Languages Spoken</p>
+              <p className="fs-2 fw-bold mb-0">8</p>
+            </div>
           </div>
         </div>
 
         {/* Recent Avatars */}
-        <h2 className="text-xl font-bold mb-4 text-left">Your Digital Avatars</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="group bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all">
-            <div className="h-48 bg-slate-700 flex items-center justify-center relative">
-              {/* Placeholder for Avatar Image Preview */}
-              <div className="w-24 h-24 rounded-full bg-slate-600 shadow-xl border-4 border-slate-800 flex items-center justify-center text-slate-400 relative z-10">
-                Avatar 1
+        <h2 className="fs-4 fw-bold mb-4">Your Digital Avatars</h2>
+        <div className="row g-4">
+          <div className="col-12 col-md-6 col-lg-4">
+            <div className="card-custom rounded-4 overflow-hidden h-100 d-flex flex-column">
+              <div className="bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center position-relative" style={{ height: '200px' }}>
+                <div className="bg-dark text-secondary rounded-circle d-flex align-items-center justify-content-center shadow border border-secondary" style={{ width: '100px', height: '100px' }}>
+                  Avatar 1
+                </div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-            </div>
-            <div className="p-5 text-left">
-              <h3 className="text-lg font-bold mb-1">Product Launch AI</h3>
-              <p className="text-sm text-slate-400 mb-4">Trained on Product Q3 Docs</p>
-              <Link to="/live/demo-avatar" className="w-full bg-slate-700 hover:bg-slate-600 text-white rounded-xl py-2 flex items-center justify-center gap-2 transition-colors">
-                <Play size={16} /> Start Live Session
-              </Link>
+              <div className="p-4 d-flex flex-column flex-grow-1">
+                <h3 className="fs-5 fw-bold mb-1">Product Launch AI</h3>
+                <p className="small text-secondary mb-4">Trained on Product Q3 Docs</p>
+                <div className="mt-auto">
+                    <Link to="/live/demo-avatar" className="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
+                        <Play size={16} /> Start Live Session
+                    </Link>
+                </div>
+              </div>
             </div>
           </div>
           
-          <Link to="/create-avatar" className="border-2 border-dashed border-slate-700 hover:border-blue-500/50 bg-slate-800/20 rounded-2xl flex flex-col items-center justify-center text-slate-400 hover:text-blue-400 transition-all min-h-[320px]">
-            <PlusCircle size={48} className="mb-4" />
-            <span className="font-medium text-lg">Create New Avatar</span>
-          </Link>
+          <div className="col-12 col-md-6 col-lg-4">
+            <Link to="/create-avatar" className="text-decoration-none text-secondary">
+                <div className="card-custom rounded-4 d-flex flex-column align-items-center justify-content-center h-100" style={{ minHeight: '320px', borderStyle: 'dashed !important' }}>
+                <PlusCircle size={48} className="mb-3" />
+                <span className="fw-medium fs-5">Create New Avatar</span>
+                </div>
+            </Link>
+          </div>
         </div>
       </main>
     </div>
